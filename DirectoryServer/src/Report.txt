@@ -1,0 +1,41 @@
+
+//DIRECTORYTEST OUTPUT
+
+Message sent to server:
+LOGON 54321 temp
+Message received from server:
+ADDED:201:10
+PASSED
+Message sent to server:
+PING 201
+Message received from server:
+PONG:10
+PASSED
+Message sent to server:
+PING 201
+Message received from server:
+PONG:10
+PASSED
+Message sent to server:
+LOGOFF 201
+Message received from server:
+DONE:201
+PASSED
+
+
+//DIRECTORYSERVER OUTPUT
+
+Connection Recieved
+LOGON 54321 temp
+Hello
+3 checking length
+Connection Recieved
+PING 201
+Connection Recieved
+PING 201
+Connection Recieved
+PING 201
+Connection Recieved
+PING 201
+Connection Recieved
+LOGOFF 201

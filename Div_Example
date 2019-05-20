@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD><TITLE> div example</TITLE></HEAD>
+
+<BODY>
+<DIV id="divMain" style="border:1px solid black;">
+	<div id= "divSub1" style="border:1px dotted red;">
+	<h2>HELLO SUB1</h2>	
+	</div>
+	
+	<br>
+	<div id="divSub2" style="border:2px dashed blue;">
+	<h2> HELLO SUB2</h2>	
+	<?php include ("test.php"); ?>
+	</div>
+
+</div>
+</body>
+</HTML>

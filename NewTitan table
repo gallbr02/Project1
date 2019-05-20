@@ -1,0 +1,22 @@
+<?php
+
+include_once("db_connect.php);
+
+print_r($_post);
+
+//extract input data
+$id = $_post['id'];
+$name = $_post['name'];
+$planet = $_post['planet'];
+$power = $_post['power'];
+
+//T1: id, name
+$str1 = "INSERT INTO T1 VALUE($id, $name);"
+
+//T2: id, planet, powert
+$str2 = "INSERT INTO T2 VALUE($id, $planet, $power);"\
+
+$result1 = $db->query($str1);
+$result2 = $db->query($str2);
+
+if($result1 == false ||

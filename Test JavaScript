@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+	<head>
+	<title> Test JavaScript </title>
+	</head>
+
+	<body bgColor = "Green" onLoad="alert('Welcome');"
+		  onUnload= "alert('Dont go');">
+		<h2> test JavaScript </h2>
+		<A href = "http://www.gettysburg.edu">Home</A>
+
+	</body>
+
+</html>

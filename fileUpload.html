@@ -1,0 +1,100 @@
+<?php
+
+// assume that user's file will be saved in
+// uploaded/ (in current folder)
+// this folder must be created and have a+rwx permission
+
+// call the function, saveImage, for actual uploading.
+
+$msg1 = saveImage($_FILES['myFile1']);
+$msg2 = saveImage($_FILES['myFile2']);
+$msg3 = saveImage($_FILES['myFile3']);
+
+echo "<P>$msg1</P>\n";
+echo "<P>$msg2</P>\n";
+echo "<P>$msg3</P>\n";
+
+function saveImage($fileData) {
+
+    // 0. for debugging
+    printf("<PRE>\n");
+    print_r($fileData);
+    printf("</PRE>\n");
+
+    $msg = "";
+
+    // 1. important variables from $fileData
+    $userfn = $fileData['name'];
+    $size   = $fileData['size'];
+    $tmpfn  = $fileData['tmp_name'];
+    $type   = $fileData['type'];
+
+    printf("<P>Step 1 done</P>");
+
+
+    // 2. check file size for (0, 5MB]
+
+    if ($size == 0) {
+        $msg = "File is empty";
+        return $msg;
+    }
+    else if ($size > 5200000) {
+        $msg = "File is too large, max of 5MB limit";
+        return $msg;
+    }
+
+    printf("<P>Step 2 done</P>");
+
+
+    // 3. get uploaded file data info from temp folder
+    $imgInfo = getimagesize($tmpfn);
+
+    printf("<P>Step 3 done</P>");
+
+    // 4. check mime type (is it an image?)
+    if ($imgInfo == FALSE) {
+        $msg = "File is not an image";
+        return $msg;
+    }
+
+    printf("<P>Step 4 done</P>");
+
+
+    // 5. check for allowed types (jpg/gif/png) 
+
+
+    printf("<P>Step 5 done</P>\n");
+
+    // 6. copy uploaded file from temp folder to correct folder
+    $folder = "./uploaded/";
+    $fn = $folder . $userfn;
+
+    print "<P>Saving uploaded file as " . $fn . "</P>\n";
+
+    // 
+    $result = move_uploaded_file($tmpfn, $fn);
+
+    printf("<P>Step 6 done</P>");
+
+    // 7. check if copying was successful
+    if ($result != FALSE) {
+        $msg = "<P>Successfully uploaded $userfn</P>\n";
+
+        // change owner info on the uploaded file 
+        // chown ______ files/folders
+        // "chown skim $fn" ==> may not work
+        //$cmd = "chown skim $fn";
+        $cmd = "chmod a+rw '$fn'";
+        echo "<P>$cmd<\P>\n";
+        system($cmd);
+    }
+    else {
+        $msg = "<P>Error uploading $userfn</P>\n";
+    }
+
+    // 8. return success or failure message
+    return $msg;
+}
+
+?>
+
