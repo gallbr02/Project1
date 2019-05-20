@@ -1,0 +1,90 @@
+Brandon Gallagher
+HMWK 7
+
+1. Consider a hard disk with the following specifications.
+6000 RPM
+32 double-sided platters
+# of cylinders = 128
+B (block size) = 2 megabytes (2 MB)
+# of blocks per track = 64
+average seek time = 15 ms
+assume no interblock gap and 0 microcontroller overhead
+
+A. total capacity of one track
+	T = 64 * (2MB + 0) 
+	= 128 MB
+
+B. total capacity of one cylinder
+	32 * 2 * 128MB = 8192 MB 
+	=> 8.192 GB
+
+C. total capacity of this disk
+	128 * 2= 256 MB
+	= 256 MB
+
+D. time to read one track
+	6000 RPM / 60 min => 100 
+	=> 100 / 1000 
+	=> 1 rotation / 10ms 
+	= 10ms
+
+E. transfer rate in bytes/msec
+	64 * 2 MB = 128 MB
+	6000 RPM/ 60 min => 1 rotation / 10 ms
+	tr = track size / time for one disk revolution = 128 MB / 10 ms => 1.28^8 bytes / 10 msec
+	= 1.28 ^ 7 bytes / msec
+
+F. block transfer time (transfer only)
+	btt = B/tr = 2MB / 1.28^7 bytes/msec => 2^6 / 1.28^7 
+	= .156 msec
+
+G. bulk transfer rate
+	btr = tr * (B/(B+G))
+	= 1.28^7 bytes/msec * (2MB/ (2MB + 0))
+	= 1.28^7 bytes/ msec * 1MB => 1.28^7 bytes/msec
+
+H. time to read 5 adjacent blocks
+	TTR = seek + rotational delay + time to transfer 1 block + overhead
+	= 15ms + 5ms + .156ms + 0 => 20.156ms * 5 => 100.78 msec = 1 sec
+
+2. A file has r = 20,000 EMPLOYEE records of fixed length stored in a disk with the following disk parameters:
+- B (block size) = 1024 bytes
+- btr (bulk transfer rate) = 896 bytes/msec
+- latency (rotational delay) = 5ms
+- btt (block transfer time) = 1ms
+- seek time = 10 ms
+- microcontroller overhead = 2ms
+
+Each record has the following fields:
+- name: 64 bytes
+- ssn: 9 bytes
+- address: 128 bytes
+- phones : 10 bytes
+- birthdate: 8 bytes
+- sex: 1 byte
+- an additional byte is used as a deletion marker for each record (to indicate this record as deleted)
+
+A Calculate the record size R in bytes
+	R = 64 + 9 + 128 + 10 + 8 + 1 + 6 = 226 bytes
+
+B Calculate the blocking factor bfr and the # of file blocks b, assuming an unspanned organization
+	bfr = B/R = 1024/226 = floor(4.53) = 4                                                                                        
+	b = r/bfr = 20000/4 = 5000
+
+C. What is the wasted space (internal fragmentation) in each block?
+	B - bfr * R = 1024 - 4 * 226 = 230520 bytes = 230.52 KB
+
+D. Calculate the average time it takes to find a record by a linear search on the file if the file blocks are stored contiguously
+	Linear search only uses half of the file blocks => 5000/2 = 2500
+	s + rd + (2500 * (B/btr)) = 10 + 5 + (2500 * (1024 / 896)) = 2872.14 msec 
+	= 2.87 sec
+
+E. Calculate the average time it takes to find a record by a linear search on the file if the file blocks are not stored contiguously
+	2500 * (s + rd + btt) = 2500 * (10 + 5 + 1) = 40000 msec 
+	= 40 sec
+
+F. Calculate the worst time it takes to find a record by ssn if the file is ordered by ssn
+
+
+
+

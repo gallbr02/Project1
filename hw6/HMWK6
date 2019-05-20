@@ -1,0 +1,40 @@
+Brandon Gallagher
+HMWK 6
+
+1.Given R = {A, B, C, D, E, F} and F = FD Set of 
+	R = { ABC -> D, CDE -> F, DE -> AB, CF -> B, BDF -> E, AE -> C, BC -> F, AB -> EF, BF -> C } 
+ 
+	The ones that have two attributes on the right must be split.
+	(DE -> AB => DE -> B, DE -> A) (AB -> EF => AB -> E, AB -> F)
+	Right Side: ABC -> D, CDE -> F, DE -> A, DE -> B, CF -> B, BDF -> E, AE -> C, BC -> F, AB -> E, AB -> F, BF -> C (This is done with IR4)
+
+	ABC -> D = AB -> D because AB -> ABEF(BF) -> C (This is done with IR3)
+	CDE -> F = DE -> F because DE -> DEA(AE) -> C (This is done with IR3)
+	Left Side: AB -> D, DE -> F, DE -> A, DE -> B, BDF -> E, CF -> B, AE -> C, BC -> F, AB -> E, AB -> F, BF -> C 
+
+	DE -> A and DE -> B making DE -> AB (this is done with IR5).  AB -> F can get rid of DE -> F (done with IR3)
+	AB -> D and AB -> F making AB -> BDFA (done with IR5). BDF -> E can get rid of AB -> E (done with IR3)
+	Final: AB -> D, DE -> A, DE -> B, BDF -> E, CF -> B, AE -> C, BC -> F, AB -> F, BF -> C
+	
+
+2. 
+   A. F = { ABC -> D, BCD -> A, D -> C, ACD -> B }
+   B. F = { AC -> D, D -> A, D -> C, D -> B }
+   C. F = { C -> B, BC -> A, A -> C, BD -> A }
+
+
+	A. Candidate keys: 
+	   A,D -> ABCD  B,D -> ABCD  A,B,C -> ABCD
+
+	   It is not in BCNF because D is not a key. D->C
+	
+	B. Candidate keys:
+	   D -> ABCD  A,C -> ABCD
+
+	   This is in BCNF because everything to the left is a candidate key.
+
+	C. Candidate keys: 
+	   A,D -> ABCD  B,D -> ABCD  C,D -> ABCD
+
+	   This is not BCNF because there is some that rely on trasitive dependency. B relies on A through C, C-> B and A-> C. 
+
